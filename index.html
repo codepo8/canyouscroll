@@ -151,17 +151,17 @@ function endthisnonsense() {
 	var tweet = '';
 	if (off === 0) {
 		msg += 'You totally nailed it!';
-    tweet = 'I tried to scroll ' + goal + 'pixels at http://codepo8.github.com/canyouscroll/ and I got it'+
+    tweet = 'I tried to scroll ' + goal + ' pixels at http://codepo8.github.com/canyouscroll/ and I got it'+
             ' right! Your turn! #canyouscroll';
 	}
 	if (off > 0) {
 		msg += 'But you were ' + off + ' pixels short.';
-    tweet = 'I tried to scroll ' + goal + 'pixels at http://codepo8.github.com/canyouscroll/ and was '+
+    tweet = 'I tried to scroll ' + goal + ' pixels at http://codepo8.github.com/canyouscroll/ and was '+
             off + ' pixels short. Your turn! #canyouscroll';
 	} 
 	if (off < 0) {
 		msg += 'But you were ' + -off + ' pixels over.';
-    tweet = 'I tried to scroll ' + goal + 'pixels at http://codepo8.github.com/canyouscroll/ and was '+
+    tweet = 'I tried to scroll ' + goal + ' pixels at http://codepo8.github.com/canyouscroll/ and was '+
             -off + ' pixels over. Your turn! #canyouscroll';
 	}
 	result.innerHTML = msg + ' <a href="http://twitter.com/home?status='+
