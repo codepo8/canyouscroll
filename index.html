@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Can you scroll?</title>
+	<style type="text/css">
+		body {
+			height: 3000px;
+			margin: 1em 2em ;
+			font-family: helvetica, arial, sans-serif;
+			color: #f8f8f8;
+			background: #333;
+			font-size: 24px;
+			overflow: auto;
+		}
+		input[type='submit'] {
+			font-size: 22px;
+			background: lime;
+			border: none;
+			padding: 3px 6px;
+			border-radius: 5px;
+		}
+		input{ 
+					font-size: 22px;
+}
+		form {
+			-webkit-transition: 0.2s;
+			-moz-transition: 0.2s;
+			-ms-transition: 0.2s;
+			-o-transition: 0.2s;
+			transition: 0.2s;
+			opacity: 1;
+			position: fixed;
+		}
+		#distract {
+			-webkit-transition: 0.5s;
+			-moz-transition: 0.5s;
+			-ms-transition: 0.5s;
+			-o-transition: 0.5s;
+			transition: 0.5s;
+			position: fixed;
+			width: 100%;
+			top: -400px;
+			left: 0;
+			height: 400px;
+		}
+		#distract p {
+			margin: 3em;
+			font-size: 24px;
+		}
+		h1 {
+			color: #ffc;
+			font-size: 32px;
+			text-transform: uppercase;
+		}
+		p {
+			font-size: 18px;
+			color: #ccc;
+		}
+		#distract.visible {
+			top: 0;
+		}
+		form.hidden {
+			opacity: 0;
+		}
+		#amount {
+			width: 4em;
+		}
+		output {
+			display: block;
+			color: #fcc;
+			margin-top: 10px
+		}
+		output a {
+			color: #fff;
+		}
+		output:focus {
+			outline: none;
+		}
+		footer {
+			display: block;
+			padding-top: 100px;
+			font-size: 14px;
+			color: #999;
+		}
+		footer a {
+			color: #ccc;
+		}
+	</style>
+</head>
+<body>
+<form>
+	<header><h1>Can you scroll?</h1></header>
+	<p>Give us a goal of how many pixels you want to scroll vertically. Then prove that you can!</p>
+	<div>
+		<label for="amount">I will scroll</label>  
+		<input type="number" id="amount" size="5" required> pixels. 
+		<input type="submit" value="see if I don't!">
+		<output></output>
+	</div>
+	<footer>Written by <a href="http://twitter.com/codepo8">Chris Heilmann (@codepo8)</a></footer>
+</form>
+<div id="distract"><p>start scrolling&hellip; click to finish</p></div>
+<p>&nbsp;</p>
+<script>
+(function(){
+var form = document.getElementsByTagName('form')[0],
+		out = document.getElementById('distract'),
+		result = document.getElementsByTagName('output')[0],
+		scrollison = false,
+		start = 0,
+		end = 0,
+		goal = 0;
+
+result.tabIndex = '-1';
+
+form.addEventListener('submit', function(ev){
+	var val = document.getElementById('amount');
+	window.scrollTo( 0, 0 );
+	if( +val.value > 0 ) {
+		form.className = 'hidden';
+		out.className = 'visible';
+		scrollison = true;
+		goal = +val.value;
+	}
+	ev.preventDefault();
+},false);
+
+window.addEventListener('scroll',function(ev){
+	if (scrollison) {
+		// this is so cheating :)
+		//console.log(document.body.scrollTop);
+	}
+}, false);
+
+document.body.addEventListener('click',function(ev){
+	if (scrollison) { endthisnonsense(); }
+}, false);
+
+out.addEventListener('click',function(ev){
+	if (scrollison) { endthisnonsense(); }
+}, false);
+
+function endthisnonsense() {
+	end = document.body.scrollTop || document.documentElement.scrollTop;
+	start = 0;
+	window.scrollTo( 0, 0 );
+	scrollison = false;
+	out.className = '';
+	form.className = '';
+	var msg = 'You said you will scroll ' + goal + ' pixels. ';
+	var off = goal - end;
+	var tweet = '';
+	if (off === 0) {
+		msg += 'You totally nailed it!';
+    tweet = 'I tried to scroll ' + goal + ' pixels at http://codepo8.github.com/canyouscroll/ and I got it'+
+            ' right! Your turn! #canyouscroll';
+	}
+	if (off > 0) {
+		msg += 'But you were ' + off + ' pixels short.';
+    tweet = 'I tried to scroll ' + goal + ' pixels at http://codepo8.github.com/canyouscroll/ and was '+
+            off + ' pixels short. Your turn! #canyouscroll';
+	} 
+	if (off < 0) {
+		msg += 'But you were ' + -off + ' pixels over.';
+    tweet = 'I tried to scroll ' + goal + ' pixels at http://codepo8.github.com/canyouscroll/ and was '+
+            -off + ' pixels over. Your turn! #canyouscroll';
+	}
+	result.innerHTML = msg + ' <a href="http://twitter.com/home?status='+
+	                   encodeURIComponent(tweet)+'">Tweet this</a>';
+	result.focus();
+}
+
+})();
+</script>
+</body>
+</html>
