@@ -70,6 +70,9 @@
 			color: #fcc;
 			margin-top: 10px
 		}
+		#output a {
+			color: #fff;
+		}
 		output:focus {
 			outline: none;
 		}
@@ -159,7 +162,7 @@ function endthisnonsense() {
 	if (off < 0) {
 		msg += 'But you were ' + -off + ' pixels over.';
     tweet = 'I tried to scroll ' + goal + 'pixels at http://codepo8.github.com/canyouscroll/ and was '+
-            off + ' pixels over. Your turn! #canyouscroll';
+            -off + ' pixels over. Your turn! #canyouscroll';
 	}
 	result.innerHTML = msg + ' <a href="http://twitter.com/home?status='+
 	                   encodeURIComponent(tweet)+'">Tweet this</a>';
