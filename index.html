@@ -100,7 +100,6 @@
 	<footer>Written by <a href="http://twitter.com/codepo8">Chris Heilmann (@codepo8)</a></footer>
 </form>
 <div id="distract"><p>start scrolling&hellip; click to finish</p></div>
-<p>&nbsp;</p>
 <script>
 (function(){
 var form = document.getElementsByTagName('form')[0],
@@ -141,7 +140,7 @@ out.addEventListener('click',function(ev){
 }, false);
  
 function endthisnonsense() {
-	end = document.body.scrollTop;
+	end = document.body.scrollTop || document.documentElement.scrollTop;
 	start = 0;
 	window.scrollTo( 0, 0 );
 	scrollison = false;
